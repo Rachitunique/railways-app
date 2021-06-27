@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employee page</title>
+    <link rel="stylesheet" href="./raile.css" />
+  </head>
+  <body>
+     <form>      
+        <div class="container">
+            <div class="1">
+                <label for="uname"><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" name="uname" required>
+            </div>
+            <div class="2">
+                <label for="psw"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="psw" required>
+            </div>
+            <div class="3">
+                <button class="sub" type="submit">Login</button>
+            </div>
+            <div class="3">
+                <label>
+                    <input type="checkbox" checked="checked" name="remember"> Remember me
+                </label>
+            </div>
+        </div>
+      </form>
+      <button id = "back">back</button>
+    <script src="./dbscript.js"></script>
+    <script>
+        let l = false;
+        let check = document.querySelector(".sub");
+        let form = document.querySelector("form");
+        check.addEventListener("click",function(){
+            form.remove();
+            make();
+        });
+        let l1 = false;
+        let l2 = false;
+        let table;
+        let del;
+        let body = document.querySelector("body");
+        function make(){
+            let headone = document.createElement("div");
+            headone.setAttribute("class","headone");
+            let head = document.createElement("div");
+            head.setAttribute("class","headfirst");
+            head.innerText = "Employee's page";
+            let done = document.createElement("div");
+            done.setAttribute("class","done");
+            let p1 = document.createElement("button");
+            p1.setAttribute("class","pone");
+            p1.innerText = "Add Trains";
+            let p2 = document.createElement("button");
+            p2.setAttribute("class","ptwo");
+            p2.innerText = "Delete Trains";
+            let head3 = document.createElement("button");
+            head3.setAttribute("class","headthree");
+            head3.innerText = "Weather";
+            let container1 = document.createElement("div");
+            container1.setAttribute("class","container1");
+            done.append(p1);
+            done.append(p2)
+            headone.append(head);
+            headone.append(done);
+            body.append(headone);
+            body.append(head3);
+            body.append(container1);
+            head3.addEventListener("click",function(){
+                const url = "http://api.openweathermap.org/data/2.5/weather?q=Delhi,india&APPID=f5c51ce64d4657c5ed2e03cdb6e5126d";
+                getapi(url);
+            });
+            async function getapi(url) {
+                const response = await fetch(url);
+                var data = await response.json();
+                head3.innerText = data["weather"]["0"]["description"];
+                if(head3.innerText == "sunny"){
+                    head3.style.background = await "url(./weather1.jpg)";
+                    alert("You may add as much trains as possible");
+                }
+                else{
+                    head3.style.background = await "url(./badweather.jpg)";
+                    alert("Weather is not good add limited trains");
+                }
+            }
+            p1.addEventListener("click",function(){
+                if(l1 == false){
+                    loadtrain(container1);
+                }
+            });
+            p2.addEventListener("click",function(){
+                if(l2 == true){
+                    let k = document.querySelectorAll(".active");
+                    let kk = [];
+                    for(let i=0; i<k.length; i++){
+                        let k2 = k[i];
+                        let k1 = document.querySelectorAll(".cllll")[i];
+                        kk.push(k1.innerText);
+                    }
+                    for(let i=0; i<k.length; i++){
+                        k[i].remove();
+                    }
+                    console.log(kk);
+                    DeleteTrain(kk);
+                }
+            })
+        }
+        function loadtrain(container1){
+            l1 = true;
+            let modal = document.createElement("div");
+            modal.setAttribute("class","modal");
+            modal.innerHTML = `
+                <form class = "tt">
+                    <div class="c5">
+                        <label for="train5">Choose Speed:</label>
+                        <select class="train5" name="speed">
+                            <option class = "s" value="none">None</option>
+                            <option class = "s" value="medium">Medium</option>
+                            <option class = "s" value="fast">Fast</option>
+                            <option class = "s" value="slow">Slow</option>
+                        </select>
+                    </div>      
+                    <div class="1">
+                        <label for="train1">Train No.</label>
+                        <input class="cl1" type="text" placeholder="Enter Trainno." name="train1" required>
+                    </div>
+                    <div class="2">
+                        <label for="traintime">d & t:</label>
+                        <input class="cl2" type="datetime-local" name="traintime">
+                    </div>
+                    <div class="3">
+                        <label for="train2">From place:</label>
+                        <input class="cl3" type="text" placeholder="Enter place" name="train2" required>
+                    </div>
+                    <div class="4">
+                        <label for="train3">To place:</label>
+                        <input class="cl4" type="text" placeholder="Enter place" name="train3" required>
+                    </div>
+                    <div class="5">
+                        <label for="train3">Enter seats</label>
+                        <input class="cl5" type="text" placeholder="Enter seats" name="train3" required>
+                    </div>
+                    <div class="c6">
+                        <button class="sub" type="submit">Submit</button>
+                    </div>
+                </form>
+            `
+            container1.append(modal);
+            let t = document.querySelector(".tt");
+            let c5 = document.querySelector(".c5");
+            let select = document.querySelector(".train5");
+            let submit = document.querySelector(".c6");
+            let moda = document.querySelector(".modal");
+            let cl1 = document.querySelector(".cl1");
+            let cl2 = document.querySelector(".cl2");
+            let cl3 = document.querySelector(".cl3");
+            let cl4 = document.querySelector(".cl4");
+            let cl5 = document.querySelector(".cl5");
+            let v0;
+            select.addEventListener("change",function(e) {
+                let filterVal = select.value;
+                if(filterVal == "fast"){
+                    select.remove();
+                    c5.innerText = "Fast"
+                }
+                if(filterVal == "medium"){
+                    select.remove();
+                    c5.innerText = "Medium"
+                }
+                else if(filterVal == "slow"){
+                    select.remove();
+                    c5.innerText = "Slow";
+                }
+                v0 = c5.innerText;
+                //c5.classList.add("inew");
+            })
+            submit.addEventListener("click",function(e){
+                modal.remove();
+                if(l2 == false){
+                    let d111 = document.createElement("div");
+                    d111.setAttribute("class","table");
+                    table = document.createElement("table");
+                    table.setAttribute("class","tab");
+                    let tr = document.createElement("tr");
+                    let th1 = document.createElement("th");
+                    th1.innerText = "Speed"
+                    let th2 = document.createElement("th");
+                    th2.innerText = "Train No."
+                    let th3 = document.createElement("th");
+                    th3.innerText = "Date&Time"
+                    let th4 = document.createElement("th");
+                    th4.innerText = "From";
+                    let th5 = document.createElement("th");
+                    th5.innerText = "To";
+                    let th6 = document.createElement("th");
+                    th6.innerText = "Seats";
+                    tr.appendChild(th1);
+                    tr.appendChild(th2);
+                    tr.appendChild(th3);
+                    tr.appendChild(th4);
+                    tr.appendChild(th5);
+                    tr.appendChild(th6);
+                    tr.setAttribute("class","hehe");
+                    table.appendChild(tr);
+                    d111.append(table);
+                    container1.append(d111);
+                    l2 = true;
+                    viewt(table);
+                    sub(cl1,cl2,cl3,cl4,cl5,v0,table);
+                }
+                else{
+                    sub(cl1,cl2,cl3,cl4,cl5,v0,table);
+                }
+            })
+        }
+        function sub(cl1,cl2,cl3,cl4,cl5,v0,table){
+            let v1 = cl1.value;
+            let v2 = cl2.value;
+            let v3 = cl3.value;
+            let v4 = cl4.value;
+            let v5 = cl5.value;
+            let tr = document.createElement("tr");
+            for(let i=0; i<6; i++){
+                let td = document.createElement("td");
+                td.classList.add("cll1");
+                if(i == 0){
+                    td.innerHTML = v0;
+                    td.classList.add("inew");
+                    if(td.innerText == "Fast"){
+                        td.style.background = "red"; 
+                    }
+                    else if(td.innerText == "Medium"){
+                        td.style.background = "orange"; 
+                    }
+                    else if(td.innerText == "Slow"){
+                        td.style.background = "yellow"; 
+                    }
+                }
+                else if(i == 1){
+                    td.innerHTML = v1;
+                    td.classList.add("cllll");
+                }
+                else if(i == 2){
+                    td.innerHTML = v2;
+                }
+                else if(i == 3){
+                    td.innerHTML = v3;
+                }
+                else if(i == 4){
+                    td.innerHTML = v4;
+                }
+                else if(i == 5){
+                    td.innerHTML = v5;
+                }
+                tr.appendChild(td);
+            }
+            table.appendChild(tr);
+            //tr.setAttribute("class","del");
+            tr.addEventListener("click",function(e){
+                if(tr.classList.contains("active")){
+                    tr.classList.remove("active");
+                    tr.style.background = "none";
+                }
+                else{
+                    tr.classList.add("active");
+                    tr.style.background = "orange";
+                }
+            })
+            //del = document.querySelectorAll(".del");
+            addTrain(v0,v1,v2,v3,v4,v5);
+            l1 = false;
+        }
+
+        let btn = document.querySelector("#back");
+        btn.addEventListener("click",function(){
+            location.assign("index.html");
+        })
+
+
+        //for(let i=0; i<del.length; i++){
+        //    del[i].addEventListener("click",function(e){
+        //        if(e.currentTarget.classList.contains("active")){
+        //            e.currentTarget.classList.remove("active");
+        //        }
+        //        else{
+        //            e.currentTarget.classList.add("active");
+        //        }
+        //    })
+        //}
+        
+
+        //back buttom pe click karne pe index.html pe wapis jana hai
+        //let btn = document.querySelector("#back");
+        //btn.addEventListener("click",function(){
+        //    location.assign("index.html");
+        //})
+        //taki hame db access mil haye nhi to ye turant viewmedia ko call kar deta hai
+        //setTimeout(function(){
+        //    viewMedia();
+        //} , 100);
+    </script>
+  </body>
+</html>

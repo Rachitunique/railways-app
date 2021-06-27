@@ -1,0 +1,147 @@
+.demo{
+    font-size: 100px;
+    font-family: Garamond, serif;
+    color: rgb(24, 22, 22);
+    font-weight: bold;
+    float:left;
+    animation: inOut 5s infinite;
+}
+
+@keyframes inOut {
+    0% {
+        margin-left: 70px;
+    }
+    4%{
+        margin-left: 105px;
+    }
+    8% {
+        margin-left: 140px;
+    }
+    12%{
+        margin-left: 175px;
+    }
+    16% {
+        margin-left: 210px;
+    }
+    20%{
+        margin-left: 245px;
+    }
+    24%{
+        margin-left: 280px;
+    }
+    28%{
+        margin-left: 315px;
+    }
+    32%{
+        margin-left: 350px;
+    }
+    36%{
+        margin-left: 385px;
+    }
+    40%{
+        margin-left: 420px;
+    }
+    44%{
+        margin-left: 455px;
+    }
+    48%{
+        margin-left: 490px;
+    }
+    52%{
+        margin-left: 525px;
+    }
+    56%{
+        margin-left: 490px;
+    }
+    60%{
+        margin-left: 455px;
+    }
+    64%{
+        margin-left: 420px;
+    }
+    68%{
+        margin-left: 380px;
+    }
+    72%{
+        margin-left: 350px;
+    }
+    76%{
+        margin-left: 315px;
+    }
+    80%{
+        margin-left: 280px;
+    }
+    84%{
+        margin-left: 245px;
+    }
+    88%{
+        margin-left: 210px;
+    }
+    92%{
+        margin-left: 175px;
+    }
+    96%{
+        margin-left: 140px;
+    }
+    100%{
+        margin-left: 130px;
+    }
+}
+
+body{
+    background: url(Capture3.gif);
+    /*cover the image within the boundary of box*/
+    background-size: cover;
+}
+
+.raileouter{
+    /*margin-left: 800px;*/
+    /*padding-top: 500px;*/
+    position: fixed;
+    top: 20vh;
+    right: 2rem;
+    height: 250px;
+    width: 600px;
+    border-radius: 30%;
+    border: 5px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.customerouter{
+    position: fixed;
+    top: 60vh;
+    right: 2rem;
+    height: 250px;
+    width: 600px;
+    border-radius: 30%;
+    border: 5px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.raileouter:hover{
+    cursor: pointer;
+}
+
+.customerouter:hover{
+    cursor: pointer;
+}
+
+.raileouter div,
+.customerouter div{
+    font-size: 60px;
+    font-family: Garamond, serif;
+    color: rgb(22, 8, 32);
+    font-weight: bold;
+}
+
+.raileouter div:hover{
+    color: rgb(219, 219, 21);
+}
+
+.customerouter div:hover{
+    color: rgb(179, 179, 5);
+}

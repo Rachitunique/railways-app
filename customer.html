@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Customer's page</title>
+    <link rel="stylesheet" href="./customer.css" />
+  </head>
+  <body>
+    <div class="headone">
+      <div class="headfirst">
+        Customer's Page
+      </div>
+      <div class="done">
+        <button class="pone">
+          Enquiry
+        </button>
+        <button class="ptwo">
+          Book
+        </button>
+        <button class="pthree">
+          Cancel
+        </button>
+      </div>
+    </div>
+    <div class="container1">
+    </div>
+    <button id = "back">back</button>
+    <script src="./dbscript.js"></script>
+    <script>
+      let btn = document.querySelector("#back");
+      btn.addEventListener("click",function(){
+        location.assign("index.html");
+      })
+      let p1 = document.querySelector(".pone");
+      let p2 = document.querySelector(".ptwo");
+      let p3 = document.querySelector(".pthree");
+      let container1 = document.querySelector(".container1");
+      let l1 = false;
+      let l2 = false;
+      p1.addEventListener("click",function(){
+        if(l1 == false){
+          loadtrain(container1); 
+        }
+      })
+      p2.addEventListener("click",function(){
+        if(l2 == false){
+          booktrain(container1);
+        }
+      })
+      p3.addEventListener("click",function(){
+        location.assign("cancel.html");
+      })
+      function loadtrain(container1){
+        l1 = true;
+        l2 = true;
+        let d1 = document.createElement("div");
+        let modal = document.createElement("div");
+        modal.setAttribute("class","modal");
+        modal.innerHTML = `
+        <form class = "tt">     
+          <div class="1">
+            <label for="train1">Enter Train No.</label>
+            <input class="cl1" type="text" placeholder="Enter Trainno." name="train1" required>
+          </div>
+          <div class="c6">
+            <button class="sub" type="submit">Submit</button>
+          </div>
+          <div class="c7">
+            <button class="del1" type="submit">End</button>
+          </div>
+        </form>
+        `
+        container1.append(modal);
+        let cl1 = document.querySelector(".cl1");
+        let sub = document.querySelector(".sub");
+        let end1 = document.querySelector(".del1");
+        end1.addEventListener("click",function(){
+          modal.remove();
+          l1 = false;
+          l2 = false;
+        })
+        sub.addEventListener("click",function(){
+          modal.remove();
+          setTimeout(function(){
+            getTrain(cl1.value);
+          } , 100);
+          l1 = false;
+          l2 = false;   
+        })
+      }
+      function booktrain(container1){
+        l2 = true;
+        l1 = true;
+        let d1 = document.createElement("div");
+        let modal = document.createElement("div");
+        modal.setAttribute("class","modal");
+        modal.innerHTML = `
+        <form class = "tt2">     
+          <div class="1">
+            <label for="train1">Enter Speed:    </label>
+            <input class="cl1" type="text" placeholder="Enter Speed." name="train1" required>
+          </div>
+          <div class="2">
+            <label for="train1">From:    </label>
+            <input class="cl2" type="text" placeholder="Enter From." name="train1" required>
+          </div>
+          <div class="2">
+            <label for="train1">To:    </label>
+            <input class="cl3" type="text" placeholder="Enter To." name="train1" required>
+          </div>
+          <div class="sub">
+            <button class="sub" type="submit">Submit</button>
+          </div>
+          <div class="c7">
+            <button class="del1" type="submit">End</button>
+          </div>
+        </form>
+        `
+        container1.append(modal);
+        let cl1 = document.querySelector(".cl1");
+        let cl2 = document.querySelector(".cl2");
+        let cl3 = document.querySelector(".cl3");
+        let sub = document.querySelector(".sub");
+        let end1 = document.querySelector(".del1");
+        end1.addEventListener("click",function(){
+          modal.remove();
+          l1 = false;
+          l2 = false;
+        })
+        let k = 0;
+        sub.addEventListener("click",function(){
+          modal.remove();
+          setTimeout(function(){
+            k = 1;
+            booTrain(cl1.value,cl2.value,cl3.value);
+          } , 100);
+         // if(k == 1){
+         //   let cd = document.querySelector(".x61");
+         //   let xx0 = document.querySelector(".xx0");
+         //   let xx1 = document.querySelector(".x11");
+         //   let xx2 = document.querySelector(".x21");
+         //   let xx3 = document.querySelector(".x31");
+         //   let xx4 = document.querySelector(".x41");
+         //   let xx5 = document.querySelector(".x51");
+         //   let m = xx1.innerText;
+         //   console.log(m);
+         //   cd.addEventListener("click",function(){
+         //     DeleteTrain(m);
+         //     let k = Number(xx5.innerText)-1;
+         //     addTrain(xx0.innerText,xx1.innerText,xx2.innerText,xx3.innerText,xx4.innerText,k);
+         //   })
+         // }
+          l2 = false;   
+          l1 = false;
+        })
+      }
+    </script>
+  </body>
+</html>
